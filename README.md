@@ -8,8 +8,8 @@ The Z-algorithm is a linear time algorithm used to efficiently find the longest 
 
 **Project Implementations:**
 
-* **Text Summarization:**
-* **Text Search with Highlighting:**
+* **Text Summarization** -> [Implementation and explanation](Text%20Search%20with%20Highlighting/)
+* **Text Search with Highlighting:** -> [Implementation and explanation](Text%20Search%20with%20Highlighting/)
 
 **Contribution and Future Development:**
 
@@ -19,4 +19,3 @@ This repository is currently under development (WIP - Work in Progress). Feel fr
 * have alternative approaches for text summarization or text search with highlighting using the Z-algorithm, or
 * simply want to discuss these projects,
 feel free to submit a pull request or open an issue on this repository.
-
