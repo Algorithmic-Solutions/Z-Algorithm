@@ -31,19 +31,6 @@ function Preprocess(text):
 - Implement the Z-algorithm to create a Z-box for the preprocessed text.
 - The Z-box will contain an integer for each position in the text, representing the length of the longest prefix-suffix match starting at that position.
 
-**Pseudocode (Z-Box Construction):**
-
-```
-function Z_Box(text):
-  n = length(text)
-  Z = [0] * n
-  for i in range(1, n):
-    # Find the longest prefix-suffix match starting at i
-    k = max(min(Z[i - j], n - i - 1) for j in range(1, i + 1))
-    Z[i] = k
-  return Z
-```
-
 **3. Frequent Phrase Identification:**
 
 - Iterate through the Z-box.

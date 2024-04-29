@@ -29,10 +29,7 @@ export class Z_Box {
         l = i;
         r = 0;
         // Search for the longest prefix that matches a suffix starting at i
-        while (
-          i + this.zValues[i] < this.textLength &&
-          this.text[i + this.zValues[i]] === this.text[this.zValues[i]]
-        ) {
+        while (i + this.zValues[i] < this.textLength && this.text[i + this.zValues[i]] === this.text[this.zValues[i]]) {
           this.zValues[i]++;
         }
         r = i + this.zValues[i] - 1;

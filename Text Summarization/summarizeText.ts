@@ -22,7 +22,6 @@ function summarizeText(text: string): string {
     zBox.zValues,
     3
   );
-  console.log('frequentPhrases:',frequentPhrases);
   
   // Ranked phrases (optional)
   const rankedPhrases = new RankPhrases(frequentPhrases.phrases, zBox.zValues);

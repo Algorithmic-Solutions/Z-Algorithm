@@ -5,11 +5,15 @@ export class FrequentPhrases {
   constructor(text: string, Z: number[], threshold: number) {
     // Iterate through each character index (i) in the text.
     for (let i = 0; i < text.length; i++) {
-      // Check if the Z-value at index i meets the minimum threshold.
       if (Z[i] >= threshold) {
-        // Extract the phrase starting at i with length Z[i] using slicing.
-        const phrase = text.slice(i, i + Z[i]);
-        // Push the extracted phrase to the phrases array.
+        let phrase = text.slice(i, i + Z[i]);
+        if (!phrase.endsWith('.')) {
+          let end = i + Z[i];
+          while (end < text.length && text[end] !== '.') {
+            end++;
+          }
+          phrase = text.slice(i, end);
+        }
         this.phrases.push(phrase);
       }
     }
