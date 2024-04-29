@@ -29,44 +29,33 @@ class TextSearch {
       : (clean_text = this.text.toLowerCase());
     return clean_text;
   }
-  calculateZBox(concat : string) {
-    const length = concat .length
-    const zValue = new Array(length).fill(0);
-    let l = 0,
-      r = 0;
-    for (let i = 1; i < this.length; i++) {
-      if (i >r) {
-        l=r=i
-        while(r< length && concat[r- l] == concat[r]){
-            l++;
-        }
-        zValue[i] = r - l;
-        r--;
+  calculateZBox(concat: string) {
+    const zValue = new Array(concat.length).fill(0);
+    let left = 0;
+    let right = 1;
+    while (right < concat.length) {
+      if (concat[right] === concat[left]) {
+        zValue[right] = right - left + 1;
+        right++;
+        left++;
       } else {
-        let k = i-l
-        if (zValue[k]<r-i+l) {
-            zValue[i] = zValue[k]
-        }else{
-            l=i
-            while(r<length&&concat[r-l] === concat[r]){
-                r++
-            }
-            zValue[i] = r-l
-            r--
+        if (left > 0) {
+          left = zValue[left - 1];
+        } else {
+          right++;
         }
       }
-    
     }
-    console.log(zValue);
+    // console.log(zValue);
     return zValue;
   }
   searchText(): Array<number> {
     const matches: number[] = [];
-    const concat  = this.searchItem +"$"+ this.words;
-    const zValues = this.calculateZBox(concat );
-    const searchItemLength = this.searchItem.length
-    for (let i = 0; i < concat.length; i++) {
-      if (zValues[i] === searchItemLength) {
+    const concat = this.searchItem + this.words;
+    const zValues = this.calculateZBox(concat);
+    const searchItemLength = this.searchItem.length;
+    for (let i = 0; i < zValues.length; i++) {
+      if (zValues[i] >= searchItemLength) {
         matches.push(i);
       }
     }
@@ -78,7 +67,10 @@ class TextSearch {
     let highlightedText = this.text;
     for (let i of matches) {
       const matchLength = this.searchItem.length;
-      const replacement = highlightedText.slice(i, i + matchLength);
+      const replacement =
+        this.highlightStyle +
+        highlightedText.slice(i, i + matchLength) +
+        this.highlightStyle;
       console.log("replacement:", replacement);
       highlightedText =
         highlightedText.slice(0, i) +
@@ -90,7 +82,7 @@ class TextSearch {
     return highlightedText;
   }
 }
-new TextSearch(
+const a = new TextSearch(
   "The quick brown fox jumps over the lazy dog. The quick brown fox is a very clever animal.",
   "fox"
 );
