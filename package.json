@@ -1,0 +1,22 @@
+{
+  "name": "z-algorithm",
+  "version": "1.0.0",
+  "description": "This repository explores the Z-algorithm, a linear-time string searching algorithm. We implement the Z-algorithm for practical applications in text summarization and text search with highlighting.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Algorithmic-Solutions/Z-Algorithm.git"
+  },
+  "keywords": [
+    "algorithm","algorithms" ,"z-algorithm"
+  ],
+  "author": "Mahdi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Algorithmic-Solutions/Z-Algorithm/issues"
+  },
+  "homepage": "https://github.com/Algorithmic-Solutions/Z-Algorithm#readme"
+}
