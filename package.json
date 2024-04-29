@@ -21,7 +21,8 @@
     "url": "https://github.com/Algorithmic-Solutions/Z-Algorithm/issues"
   },
   "homepage": "https://github.com/Algorithmic-Solutions/Z-Algorithm#readme",
-  "dependencies": {
-    "ts-node": "^10.9.2"
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }
