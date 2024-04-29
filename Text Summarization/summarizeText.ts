@@ -15,7 +15,6 @@ function summarizeText(text: string): string {
     
   // Z-Box calculation
   const zBox = new Z_Box(preprocessedText);
-//   console.log('zBox:',zBox);
 
   // Frequent phrase identification (adjust threshold as needed)
   const frequentPhrases = new FrequentPhrases(
@@ -23,9 +22,10 @@ function summarizeText(text: string): string {
     zBox.zValues,
     3
   );
+  console.log('frequentPhrases:',frequentPhrases);
+  
   // Ranked phrases (optional)
   const rankedPhrases = new RankPhrases(frequentPhrases.phrases, zBox.zValues);
-
   // Summary generation (select top 2 phrases)
   let summary = new GenerateSummary(rankedPhrases.phrases, 2).summary;
 

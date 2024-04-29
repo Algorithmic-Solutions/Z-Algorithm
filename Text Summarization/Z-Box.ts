@@ -1,31 +1,42 @@
 export class Z_Box {
-  // The length of the input text.
-  textLength: number;
-
-  // An array to store the Z-values for each index in the text.
-  zValues: number[];
-  text: string;
+  private readonly textLength: number;
+  public readonly zValues: number[];
+  public readonly text: string;
   constructor(text: string) {
     this.text = text;
     this.textLength = text.length;
-
-    // Initialize the Z-values array with zeros (placeholders before calculation).
     this.zValues = new Array(this.textLength).fill(0);
-    // Calculate Z-values for remaining characters.
     this.calculateZValues();
   }
+
   private calculateZValues(): void {
+    let l = 0;
+    let r = 0;
+
     for (let i = 1; i < this.textLength; i++) {
-      let k = Math.min(i, this.zValues[i - 1] + 1); 
-  
-      for (let j = 1; j < k; j++) {
-        if (this.text.charAt(i - j) !== this.text.charAt(i)) {
-          break; // No match found, exit inner loop.
+      // If i is inside the box (defined by l and r)
+      if (i <= r) {
+        // Check if remaining characters inside the box can extend the current Z value
+        const k = i - l;
+        if (this.zValues[k] <= r - i) {
+          this.zValues[i] = this.zValues[k];
+        } else {
+          // this.zValues[i] will be at least as much as remaining characters in the box
+          this.zValues[i] = r - i + 1;
         }
-        k++;
+      } else {
+        // i is outside the box
+        l = i;
+        r = 0;
+        // Search for the longest prefix that matches a suffix starting at i
+        while (
+          i + this.zValues[i] < this.textLength &&
+          this.text[i + this.zValues[i]] === this.text[this.zValues[i]]
+        ) {
+          this.zValues[i]++;
+        }
+        r = i + this.zValues[i] - 1;
       }
-      const kPrime = Math.min(k, i); // Limit k by the current index (i) to avoid negative indices.
-      this.zValues[i] = kPrime;
     }
   }
 }
