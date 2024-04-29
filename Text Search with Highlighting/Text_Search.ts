@@ -29,26 +29,44 @@ class TextSearch {
       : (clean_text = this.text.toLowerCase());
     return clean_text;
   }
-  calculateZBox(concatenatedString:string) {
-    const zValue = new Array(concatenatedString.length).fill(0);
-    let k = 0;
-        for (let i = 1; i < this.length; i++) {
-        k = 0;
-        while (k < this.length - i && concatenatedString[i + k] === concatenatedString[k]) {
-            k ++;
+  calculateZBox(concat : string) {
+    const length = concat .length
+    const zValue = new Array(length).fill(0);
+    let l = 0,
+      r = 0;
+    for (let i = 1; i < this.length; i++) {
+      if (i >r) {
+        l=r=i
+        while(r< length && concat[r- l] == concat[r]){
+            l++;
         }
-        zValue[i] = k;
+        zValue[i] = r - l;
+        r--;
+      } else {
+        let k = i-l
+        if (zValue[k]<r-i+l) {
+            zValue[i] = zValue[k]
+        }else{
+            l=i
+            while(r<length&&concat[r-l] === concat[r]){
+                r++
+            }
+            zValue[i] = r-l
+            r--
+        }
+      }
+    
     }
     console.log(zValue);
     return zValue;
-}
+  }
   searchText(): Array<number> {
     const matches: number[] = [];
-    const concatenatedString = this.searchItem + this.words;
-    const zValues = this.calculateZBox(concatenatedString);
-    const searchItemLength = this.searchItem.length;
-    for (let i = 0; i < zValues.length ; i++) {
-      if (zValues[i] >= searchItemLength) {
+    const concat  = this.searchItem +"$"+ this.words;
+    const zValues = this.calculateZBox(concat );
+    const searchItemLength = this.searchItem.length
+    for (let i = 0; i < concat.length; i++) {
+      if (zValues[i] === searchItemLength) {
         matches.push(i);
       }
     }
@@ -56,17 +74,17 @@ class TextSearch {
   }
   highlighting(): string {
     const matches = this.searchText();
-    console.log('matches:',matches);
+    console.log("matches:", matches);
     let highlightedText = this.text;
     for (let i of matches) {
       const matchLength = this.searchItem.length;
-      const replacement = highlightedText.slice(i, i + matchLength) 
-        console.log('replacement:',replacement);
+      const replacement = highlightedText.slice(i, i + matchLength);
+      console.log("replacement:", replacement);
       highlightedText =
-        highlightedText.slice(0, i)+
-        "|"+
+        highlightedText.slice(0, i) +
+        "|" +
         replacement.toUpperCase() +
-        "|"+
+        "|" +
         highlightedText.slice(i + matchLength);
     }
     return highlightedText;
