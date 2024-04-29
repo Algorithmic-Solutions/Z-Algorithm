@@ -25,30 +25,22 @@ class TextSearch {
     let clean_text: string;
     let regexp = /[^\w\s]/;
     this.remove_punctuation
-      ? (clean_text = this.text.replace(regexp, "  ").toLowerCase())
+      ? (clean_text = this.text.replace(regexp, "").toLowerCase())
       : (clean_text = this.text.toLowerCase());
     return clean_text;
   }
   calculateZBox(concat: string) {
     const zValue = new Array(concat.length).fill(0);
-    let left = 0;
-    let right = 1;
-    while (right < concat.length) {
-      if (concat[right] === concat[left]) {
-        zValue[right] = right - left + 1;
-        right++;
-        left++;
-      } else {
-        if (left > 0) {
-          left = zValue[left - 1];
-        } else {
-          right++;
-        }
+    for (let i = 1; i < concat.length; i++) {
+      let k = 0;
+      while (k < i && concat[i + k] === concat[k]) {
+        k++;
       }
+      zValue[i] = k;
     }
-    // console.log(zValue);
     return zValue;
   }
+
   searchText(): Array<number> {
     const matches: number[] = [];
     const concat = this.searchItem + this.words;
@@ -67,10 +59,7 @@ class TextSearch {
     let highlightedText = this.text;
     for (let i of matches) {
       const matchLength = this.searchItem.length;
-      const replacement =
-        this.highlightStyle +
-        highlightedText.slice(i, i + matchLength) +
-        this.highlightStyle;
+      const replacement = highlightedText.slice(i, i + matchLength) 
       console.log("replacement:", replacement);
       highlightedText =
         highlightedText.slice(0, i) +
