@@ -11,12 +11,17 @@
     "url": "git+https://github.com/Algorithmic-Solutions/Z-Algorithm.git"
   },
   "keywords": [
-    "algorithm","algorithms" ,"z-algorithm"
+    "algorithm",
+    "algorithms",
+    "z-algorithm"
   ],
   "author": "Mahdi",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Algorithmic-Solutions/Z-Algorithm/issues"
   },
-  "homepage": "https://github.com/Algorithmic-Solutions/Z-Algorithm#readme"
+  "homepage": "https://github.com/Algorithmic-Solutions/Z-Algorithm#readme",
+  "dependencies": {
+    "ts-node": "^10.9.2"
+  }
 }
