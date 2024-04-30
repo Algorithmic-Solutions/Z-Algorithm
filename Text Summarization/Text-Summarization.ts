@@ -1,16 +1,17 @@
 class TextSummarization {
-  text: string;
-  words: string[];
-  stopwords: string[] = ["the", "a", "an"];
+  private text: string;
+  public summary: string;
   constructor(text: string) {
     this.text = text.toLowerCase().replace(/[^\w]/, " ");
     this.text = this.Preprocess();
+    this.summary = this.generatedSummary();
   }
   Preprocess(): string {
-    this.words = this.text
+    let stopwords: string[] = ["the", "a", "an"];
+    let words: string[] = this.text
       .split(/\s+/)
-      .filter((word) => !this.stopwords.includes(word));
-    return (this.text = this.words.join(" "));
+      .filter((word) => !stopwords.includes(word));
+    return (this.text = words.join(" "));
   }
   zBox(): number[] {
     const n = this.text.length;
@@ -73,7 +74,7 @@ class TextSummarization {
     );
     return phrase;
   }
-  generatedSummary() {
+  generatedSummary(): string {
     let summary: string = "";
     const phrase = this.RankPhrases();
     for (let i = 0; i < Math.min(2, phrase.length); i++) {
@@ -81,6 +82,7 @@ class TextSummarization {
         summary += phrase[i] + ". ";
       }
     }
+    return summary;
   }
 }
 const text =
