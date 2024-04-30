@@ -88,4 +88,4 @@ class TextSummarization {
 const text =
   "The quick brown fox jumps over the lazy dog. The quick brown fox is a very clever animal.";
 const generatedSummary = new TextSummarization(text);
-console.log("Summary:", generatedSummary);
+console.log("Summary:", generatedSummary.summary);
