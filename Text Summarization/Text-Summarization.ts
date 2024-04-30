@@ -63,7 +63,27 @@ class TextSummarization {
     }
     return phrases;
   }
-  RankPhrases(){
-    
+  RankPhrases() {
+    const phrases: string[] = this.FrequentPhrases();
+    const z = this.zBox();
+    const rankedPhrases = phrases.map((p, i) => ({ p, Z: z[i] }));
+    rankedPhrases.sort((a, b) => b.Z - a.Z);
+    let phrase: string[] = rankedPhrases.map(
+      (rankedPhrases) => rankedPhrases.p
+    );
+    return phrase;
+  }
+  generatedSummary() {
+    let summary: string = "";
+    const phrase = this.RankPhrases();
+    for (let i = 0; i < Math.min(2, phrase.length); i++) {
+      if (phrase[i].length > 1) {
+        summary += phrase[i] + ". ";
+      }
+    }
   }
 }
+const text =
+  "The quick brown fox jumps over the lazy dog. The quick brown fox is a very clever animal.";
+const generatedSummary = new TextSummarization(text);
+console.log("Summary:", generatedSummary);
